@@ -72,6 +72,7 @@ class InsertDialog(QDialog):
         # Add a submit button
         button = QPushButton("Register")
         button.clicked.connect(self.add_student)
+        layout.addWidget(button)
 
 
         self.setLayout(layout)
