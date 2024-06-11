@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QApplication, QLabel, QWidget, QGridLayout, \
 QLineEdit, QPushButton, QMainWindow, QTableWidget, QTableWidgetItem, \
-      QDialog, QVBoxLayout
+      QDialog, QVBoxLayout, QComboBox
 from PyQt6.QtGui import QAction
 import sys
 import sqlite3
@@ -52,8 +52,42 @@ class InsertDialog(QDialog):
 
         layout = QVBoxLayout()
 
-        student_name = QLineEdit()
-        student_name.setPlaceholderText("Name")
+
+        #Add student name widget
+        self.student_name = QLineEdit()
+        self.student_name.setPlaceholderText("Name")
+        layout.addWidget(self.student_name)
+
+        #Add combo subjects
+        self.course_name = QComboBox()
+        courses = ["Biology", "Math", "Astronomy","Physics"]
+        self.course_name.addItems(courses)
+        layout.addWidget(self.course_name)
+
+        # Add mobile widget
+        self.mobile = QLineEdit()
+        self.mobile.setPlaceholderText("Mobile")
+        layout.addWidget(self.mobile)
+
+        # Add a submit button
+        button = QPushButton("Register")
+        button.clicked.connect(self.add_student)
+
+
+        self.setLayout(layout)
+
+    def add_student(self):
+        name = self.student_name.text()
+        course = self.course_name.itemText(self.course_name.currentIndex())
+        mobile = self.mobile.text()
+
+        connection = sqlite3.connect("database.db")
+        cursor = connection.cursor()
+        cursor.execute("INSERT INTO students(name, course, mobile) VALUES (?, ?, ?)",
+                       (name, course, mobile))
+        connection.commit()
+        cursor.close()
+        connection.close()
 
 
 app = QApplication(sys.argv)
