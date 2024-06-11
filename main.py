@@ -21,6 +21,7 @@ class MainWindow(QMainWindow):
         self.table = QTableWidget()
         self.table.setColumnCount(4)
         self.table.setHorizontalHeaderLabels(("Id", "Name", "Course", "Mobile"))
+        self.table.verticalHeader().setVisible(False)
         self.setCentralWidget(self.table)
 
     def load_data(self):
@@ -34,8 +35,6 @@ class MainWindow(QMainWindow):
         connection.close()
 
         self.table
-
-
 
 
 app = QApplication(sys.argv)
