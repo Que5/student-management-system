@@ -2,6 +2,7 @@ from PyQt6.QtWidgets import QApplication, QLabel, QWidget, QGridLayout, \
 QLineEdit, QPushButton, QMainWindow, QTableWidget
 from PyQt6.QtGui import QAction
 import sys
+import sqlite3
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -23,6 +24,9 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.table)
 
     def load_data(self):
+        connection = sqlite3.connect("database.db")
+        result = connection.execute("SELECT * FROM students")
+        print(list(result))
         self.table
 
 
@@ -31,4 +35,5 @@ class MainWindow(QMainWindow):
 app = QApplication(sys.argv)
 age_calculator = MainWindow()
 age_calculator.show()
+age_calculator.load_data()
 sys.exit(app.exec())
