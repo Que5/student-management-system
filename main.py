@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import QApplication, QLabel, QWidget, QGridLayout, \
-QLineEdit, QPushButton, QMainWindow, QTableWidget, QTableWidgetItem
+QLineEdit, QPushButton, QMainWindow, QTableWidget, QTableWidgetItem, QDialog
 from PyQt6.QtGui import QAction
 import sys
 import sqlite3
@@ -13,6 +13,7 @@ class MainWindow(QMainWindow):
         help_menu_item = self.menuBar().addMenu("&Help")
 
         add_student_action = QAction("Add Student", self)
+        add_student_action.triggered.connect(self.insert)
         file_menu_item.addAction(add_student_action)
 
         about_action = QAction("About", self)
@@ -35,6 +36,18 @@ class MainWindow(QMainWindow):
         connection.close()
 
         self.table
+
+    def insert(self):
+        dialog = InsertDialog()
+        dialog.exec()
+
+
+class InsertDialog(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Insert Student Data")
+        self.setFixedWidth(300)
+        self.setFixedHeight(300)
 
 
 app = QApplication(sys.argv)
