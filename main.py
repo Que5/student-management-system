@@ -1,5 +1,6 @@
 from PyQt6.QtWidgets import QApplication, QLabel, QWidget, QGridLayout, \
-QLineEdit, QPushButton, QMainWindow, QTableWidget, QTableWidgetItem, QDialog
+QLineEdit, QPushButton, QMainWindow, QTableWidget, QTableWidgetItem, \
+      QDialog, QVBoxLayout
 from PyQt6.QtGui import QAction
 import sys
 import sqlite3
@@ -48,6 +49,11 @@ class InsertDialog(QDialog):
         self.setWindowTitle("Insert Student Data")
         self.setFixedWidth(300)
         self.setFixedHeight(300)
+
+        layout = QVBoxLayout()
+
+        student_name = QLineEdit()
+        student_name.setPlaceholderText("Name")
 
 
 app = QApplication(sys.argv)
