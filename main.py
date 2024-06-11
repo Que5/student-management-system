@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import QApplication, QLabel, QWidget, QGridLayout, \
-QLineEdit, QPushButton, QMainWindow, QTableWidget
+QLineEdit, QPushButton, QMainWindow, QTableWidget, QTableWidgetItem
 from PyQt6.QtGui import QAction
 import sys
 import sqlite3
@@ -26,7 +26,13 @@ class MainWindow(QMainWindow):
     def load_data(self):
         connection = sqlite3.connect("database.db")
         result = connection.execute("SELECT * FROM students")
-        print(list(result))
+        self.table.setRowCount(0)
+        for row_number, row_data in enumerate(result):
+            self.table.insertRow(row_number)
+            for column_number, data in enumerate(row_data):
+                self.table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
+        connection.close()
+
         self.table
 
 
