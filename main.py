@@ -34,9 +34,12 @@ class MainWindow(QMainWindow):
         self.table.verticalHeader().setVisible(False)
         self.setCentralWidget(self.table)
 
+        # Create toolbar and toolbar elements
         toolbar = QToolBar()
         toolbar.setMovable(True)
         self.addToolBar(toolbar)
+        toolbar.addAction()
+
 
     def load_data(self):
         connection = sqlite3.connect("database.db")
